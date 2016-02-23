@@ -32,4 +32,10 @@ PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
 
 export CLICOLOR=1
 export LSCOLORS=Gxfxcxdxbxegedabagacad
-export PS1="\n\[\e[30;47m\]\u @ \h  ::  \[\e[30;47;1m\]\w\[\e[30;47m\] -----------\[\e[0m\]\n\$ "
+
+# Git branch in prompt.
+parse_git_branch() {
+    git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
+}
+
+export PS1="\n\[\e[30;47m\]\u @ \h :: \[\e[30;47;1m\]\w\[\e[30;47m\] \e[34m$(parse_git_branch)\e[30;47m ---------\[\e[0m\]\n\$ "
